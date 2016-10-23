@@ -26,14 +26,22 @@ class DateInterval {
      *
      * @param {int} interval Interval Number of days
      * @author Michel Araujo <araujo_michel@yahoo.com.br>
-     * @returns {string}
+     * @returns {Object}
      */
 	setDays(interval) {
 	    const newDay = this._date.getUTCDate() + interval;
         this._date.setUTCDate(newDay);
 
-        return this._date.getUTCDate()+'/'+(this._date.getUTCMonth()+1)+'/'+this._date.getUTCFullYear();
+        return this;
 	}
+
+    /**
+     * If the object is converted to string returns this standard format
+     * @returns {string}
+     */
+	toString() {
+        return this._date.getUTCDate()+'/'+(this._date.getUTCMonth()+1)+'/'+this._date.getUTCFullYear();
+    }
 }
 
 module.exports = DateInterval;
