@@ -1,6 +1,7 @@
 /**
  * DateInterval
  * Simple class to create interval between dates
+ * By default all returns in UTC
  *
  * @author Michel Araujo <araujo_michel@yahoo.com.br>
  * @version 1.0.0
@@ -28,10 +29,10 @@ class DateInterval {
      * @returns {string}
      */
 	setDays(interval) {
-		const newDay = this._date.getDate() + interval;
-		this._date.setDate(newDay);
+	    const newDay = this._date.getUTCDate() + interval;
+        this._date.setUTCDate(newDay);
 
-		return this._date.getDate()+'/'+(this._date.getMonth()+1)+'/'+this._date.getFullYear();
+        return this._date.getUTCDate()+'/'+(this._date.getUTCMonth()+1)+'/'+this._date.getUTCFullYear();
 	}
 }
 
