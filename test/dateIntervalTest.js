@@ -12,14 +12,14 @@ describe('#DateInterval', function() {
     it('#Test get current date', function (done) {
         const dateInterval = new DateInterval();
         const date = new Date();
-        assert.equal(dateInterval.setDays(0), date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear());
+        assert.equal(String(dateInterval.setDays(0)), date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear());
         done();
     });
 
     it('#Test the toString method without calling setDays method', function (done) {
         const dateInterval = new DateInterval();
         const date = new Date();
-        assert.equal(dateInterval, date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear());
+        assert.equal(String(dateInterval), date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear());
         done();
     });
 
