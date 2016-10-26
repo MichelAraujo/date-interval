@@ -47,6 +47,13 @@ class DateInterval {
     return this;
   }
 
+  /**
+   * Formats the date as the parameter
+   *
+   * @param {string} format Format the date Y-M, D/M/Y
+   * @author Michel Araujo <araujo_michel@yahoo.com.br>
+   * @returns {*}
+   */
   format(format) {
     if (!this.utc) {
       return this.getFormatLocal(format);
@@ -62,6 +69,13 @@ class DateInterval {
     return this.date.getUTCDate() + '/' + (this.date.getUTCMonth() + 1) + '/' + this.date.getUTCFullYear();
   }
 
+  /**
+   * Check what is the desired format and returns for hours UTC
+   *
+   * @param {string} format Format the date Y-M, D/M/Y
+   * @author Michel Araujo <araujo_michel@yahoo.com.br>
+   * @returns {string}
+   */
   getFormatUTC(format) {
     switch (format) {
       case 'Y-M': {
@@ -121,6 +135,13 @@ class DateInterval {
     }
   }
 
+  /**
+   * Check what is the desired format and returns for hours LOCAL
+   *
+   * @param {string} format Format the date Y-M, D/M/Y
+   * @author Michel Araujo <araujo_michel@yahoo.com.br>
+   * @returns {string}
+   */
   getFormatLocal(format) {
     switch (format) {
       case 'Y-M': {
