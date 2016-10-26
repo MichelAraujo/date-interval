@@ -34,12 +34,53 @@ class DateInterval {
     return this;
   }
 
+  format(format) {
+    switch (format) {
+      case 'Y-M': {
+        return this.date.getUTCFullYear() + '-' + this.addZeroInMonth();
+      }
+      case 'y-m': {
+        return this.date.getUTCFullYear() + '-' + (this.date.getUTCMonth() + 1);
+      }
+      case 'M-Y': {
+        return this.addZeroInMonth() + '-' + this.date.getUTCFullYear();
+      }
+      case 'm-y': {
+        return (this.date.getUTCMonth() + 1) + '-' + this.date.getUTCFullYear();
+      }
+      case 'Y-M-D': {
+        return this.date.getUTCFullYear() + '-' + this.addZeroInMonth() + '-' + this.addZeroInDay();
+      }
+      case 'D-M-Y': {
+        return this.addZeroInDay() + '-' + this.addZeroInMonth() + '-' + this.date.getUTCFullYear();
+      }
+      default:
+        throw new Error('Format of the date invalid');
+    }
+  }
+
   /**
    * If the object is converted to string returns this standard format
    * @returns {string}
    */
   toString() {
     return this.date.getUTCDate() + '/' + (this.date.getUTCMonth() + 1) + '/' + this.date.getUTCFullYear();
+  }
+
+  addZeroInMonth() {
+    let month = this.date.getUTCMonth() + 1;
+    if (month < 10) {
+      month = '0' + month;
+    }
+    return month;
+  }
+
+  addZeroInDay() {
+    let day = this.date.getUTCDate();
+    if (day < 10) {
+      day = '0' + day;
+    }
+    return day;
   }
 }
 
