@@ -84,11 +84,11 @@ class DateInterval {
       }
       case 'Y-M-D h:m:s': {
         return this.date.getUTCFullYear() + '-' + this.addZeroInMonthUTC() + '-' + this.addZeroInDayUTC()
-          + ' ' + this.date.getUTCHours() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
+          + ' ' + this.addZeroInHoursUTC() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
       }
       case 'D-M-Y h:m:s': {
         return this.addZeroInDayUTC() + '-' + this.addZeroInMonthUTC() + '-' + this.date.getUTCFullYear()
-          + ' ' + this.date.getUTCHours() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
+          + ' ' + this.addZeroInHoursUTC() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
       }
       case 'Y/M': {
         return this.date.getUTCFullYear() + '/' + this.addZeroInMonthUTC();
@@ -110,11 +110,11 @@ class DateInterval {
       }
       case 'Y/M/D h:m:s': {
         return this.date.getUTCFullYear() + '/' + this.addZeroInMonthUTC() + '/' + this.addZeroInDayUTC()
-          + ' ' + this.date.getUTCHours() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
+          + ' ' + this.addZeroInHoursUTC() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
       }
       case 'D/M/Y h:m:s': {
         return this.addZeroInDayUTC() + '/' + this.addZeroInMonthUTC() + '/' + this.date.getUTCFullYear()
-          + ' ' + this.date.getUTCHours() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
+          + ' ' + this.addZeroInHoursUTC() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
       }
       default:
         throw new Error('Format of the date invalid');
@@ -214,6 +214,14 @@ class DateInterval {
 
   addZeroInHours() {
     let hours = this.date.getHours();
+    if (hours < 10) {
+      hours = '0' + hours;
+    }
+    return hours;
+  }
+
+  addZeroInHoursUTC() {
+    let hours = this.date.getUTCHours();
     if (hours < 10) {
       hours = '0' + hours;
     }

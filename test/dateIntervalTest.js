@@ -202,6 +202,18 @@ describe('#DateInterval', () => {
     done();
   });
 
+  it('#Test the format D/M/Y h:m:s with hours number less than ten', (done) => {
+    const dateInterval = new DateInterval('2016-09-05 01:10:00');
+    assert.equal(dateInterval.setDays(2).format('D/M/Y h:m:s'), '07/09/2016 04:10:0');
+    done();
+  });
+
+  it('#Test the format D-M-Y h:m:s with hours number less than ten', (done) => {
+    const dateInterval = new DateInterval('2016-09-05 01:10:00');
+    assert.equal(dateInterval.setDays(2).format('D-M-Y h:m:s'), '07-09-2016 04:10:0');
+    done();
+  });
+
   /**
    * Tests with format Y-M-D and D-M-Y to hours local
    */
