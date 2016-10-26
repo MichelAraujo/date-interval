@@ -48,11 +48,10 @@ class DateInterval {
   }
 
   format(format) {
-    if (this.utc) {
-      return this.getFormatUTC(format);
-    } else {
-
+    if (!this.utc) {
+      return this.getFormatLocal(format);
     }
+    return this.getFormatUTC(format);
   }
 
   /**
@@ -125,56 +124,56 @@ class DateInterval {
   getFormatLocal(format) {
     switch (format) {
       case 'Y-M': {
-        return this.date.getUTCFullYear() + '-' + this.addZeroInMonth();
+        return this.date.getFullYear() + '-' + this.addZeroInMonth();
       }
       case 'y-m': {
-        return this.date.getUTCFullYear() + '-' + (this.date.getUTCMonth() + 1);
+        return this.date.getFullYear() + '-' + (this.date.getMonth() + 1);
       }
       case 'M-Y': {
-        return this.addZeroInMonth() + '-' + this.date.getUTCFullYear();
+        return this.addZeroInMonth() + '-' + this.date.getFullYear();
       }
       case 'm-y': {
-        return (this.date.getUTCMonth() + 1) + '-' + this.date.getUTCFullYear();
+        return (this.date.getMonth() + 1) + '-' + this.date.getFullYear();
       }
       case 'Y-M-D': {
-        return this.date.getUTCFullYear() + '-' + this.addZeroInMonth() + '-' + this.addZeroInDay();
+        return this.date.getFullYear() + '-' + this.addZeroInMonth() + '-' + this.addZeroInDay();
       }
       case 'D-M-Y': {
-        return this.addZeroInDay() + '-' + this.addZeroInMonth() + '-' + this.date.getUTCFullYear();
+        return this.addZeroInDay() + '-' + this.addZeroInMonth() + '-' + this.date.getFullYear();
       }
       case 'Y-M-D h:m:s': {
-        return this.date.getUTCFullYear() + '-' + this.addZeroInMonth() + '-' + this.addZeroInDay()
-          + ' ' + this.date.getUTCHours() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
+        return this.date.getFullYear() + '-' + this.addZeroInMonth() + '-' + this.addZeroInDay()
+          + ' ' + this.addZeroInHours() + ':' + this.date.getMinutes() + ':' + this.date.getSeconds();
       }
       case 'D-M-Y h:m:s': {
-        return this.addZeroInDay() + '-' + this.addZeroInMonth() + '-' + this.date.getUTCFullYear()
-          + ' ' + this.date.getUTCHours() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
+        return this.addZeroInDay() + '-' + this.addZeroInMonth() + '-' + this.date.getFullYear()
+          + ' ' + this.addZeroInHours() + ':' + this.date.getMinutes() + ':' + this.date.getSeconds();
       }
       case 'Y/M': {
-        return this.date.getUTCFullYear() + '/' + this.addZeroInMonth();
+        return this.date.getFullYear() + '/' + this.addZeroInMonth();
       }
       case 'y/m': {
-        return this.date.getUTCFullYear() + '/' + (this.date.getUTCMonth() + 1);
+        return this.date.getFullYear() + '/' + (this.date.getMonth() + 1);
       }
       case 'M/Y': {
-        return this.addZeroInMonth() + '/' + this.date.getUTCFullYear();
+        return this.addZeroInMonth() + '/' + this.date.getFullYear();
       }
       case 'm/y': {
-        return (this.date.getUTCMonth() + 1) + '/' + this.date.getUTCFullYear();
+        return (this.date.getMonth() + 1) + '/' + this.date.getFullYear();
       }
       case 'Y/M/D': {
-        return this.date.getUTCFullYear() + '/' + this.addZeroInMonth() + '/' + this.addZeroInDay();
+        return this.date.getFullYear() + '/' + this.addZeroInMonth() + '/' + this.addZeroInDay();
       }
       case 'D/M/Y': {
-        return this.addZeroInDay() + '/' + this.addZeroInMonth() + '/' + this.date.getUTCFullYear();
+        return this.addZeroInDay() + '/' + this.addZeroInMonth() + '/' + this.date.getFullYear();
       }
       case 'Y/M/D h:m:s': {
-        return this.date.getUTCFullYear() + '/' + this.addZeroInMonth() + '/' + this.addZeroInDay()
-          + ' ' + this.date.getUTCHours() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
+        return this.date.getFullYear() + '/' + this.addZeroInMonth() + '/' + this.addZeroInDay()
+          + ' ' + this.addZeroInHours() + ':' + this.date.getMinutes() + ':' + this.date.getSeconds();
       }
       case 'D/M/Y h:m:s': {
-        return this.addZeroInDay() + '/' + this.addZeroInMonth() + '/' + this.date.getUTCFullYear()
-          + ' ' + this.date.getUTCHours() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
+        return this.addZeroInDay() + '/' + this.addZeroInMonth() + '/' + this.date.getFullYear()
+          + ' ' + this.addZeroInHours() + ':' + this.date.getMinutes() + ':' + this.date.getSeconds();
       }
       default:
         throw new Error('Format of the date invalid');
@@ -195,6 +194,30 @@ class DateInterval {
       day = '0' + day;
     }
     return day;
+  }
+
+  addZeroInMonth() {
+    let month = this.date.getMonth() + 1;
+    if (month < 10) {
+      month = '0' + month;
+    }
+    return month;
+  }
+
+  addZeroInDay() {
+    let day = this.date.getDate();
+    if (day < 10) {
+      day = '0' + day;
+    }
+    return day;
+  }
+
+  addZeroInHours() {
+    let hours = this.date.getHours();
+    if (hours < 10) {
+      hours = '0' + hours;
+    }
+    return hours;
   }
 }
 
