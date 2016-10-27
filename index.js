@@ -11,6 +11,7 @@ class DateInterval {
   /**
    * @constructor
    * @param {String} date start date range
+   * @param {String} utc
    * @author Michel Araujo <araujo_michel@yahoo.com.br>
    */
   constructor(date, utc) {
@@ -77,58 +78,38 @@ class DateInterval {
    * @returns {string}
    */
   getFormatUTC(format) {
+    const separator = DateInterval.getSeparator(format);
+
     switch (format) {
-      case 'Y-M': {
-        return this.date.getUTCFullYear() + '-' + this.addZeroInMonthUTC();
+      case 'Y' + separator + 'M': {
+        return this.date.getUTCFullYear() + separator + this.addZeroInMonthUTC();
       }
-      case 'y-m': {
-        return this.date.getUTCFullYear() + '-' + (this.date.getUTCMonth() + 1);
+      case 'y' + separator + 'm': {
+        return this.date.getUTCFullYear() + separator + (this.date.getUTCMonth() + 1);
       }
-      case 'M-Y': {
-        return this.addZeroInMonthUTC() + '-' + this.date.getUTCFullYear();
+      case 'M' + separator + 'Y': {
+        return this.addZeroInMonthUTC() + separator + this.date.getUTCFullYear();
       }
-      case 'm-y': {
-        return (this.date.getUTCMonth() + 1) + '-' + this.date.getUTCFullYear();
+      case 'm' + separator + 'y': {
+        return (this.date.getUTCMonth() + 1) + separator + this.date.getUTCFullYear();
       }
-      case 'Y-M-D': {
-        return this.date.getUTCFullYear() + '-' + this.addZeroInMonthUTC() + '-' + this.addZeroInDayUTC();
+      case 'Y' + separator + 'M' + separator + 'D': {
+        return this.date.getUTCFullYear() + separator + this.addZeroInMonthUTC()
+          + separator + this.addZeroInDayUTC();
       }
-      case 'D-M-Y': {
-        return this.addZeroInDayUTC() + '-' + this.addZeroInMonthUTC() + '-' + this.date.getUTCFullYear();
+      case 'D' + separator + 'M' + separator + 'Y': {
+        return this.addZeroInDayUTC() + separator + this.addZeroInMonthUTC()
+          + separator + this.date.getUTCFullYear();
       }
-      case 'Y-M-D h:m:s': {
-        return this.date.getUTCFullYear() + '-' + this.addZeroInMonthUTC() + '-' + this.addZeroInDayUTC()
-          + ' ' + this.addZeroInHoursUTC() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
+      case 'Y' + separator + 'M' + separator + 'D h:m:s': {
+        return this.date.getUTCFullYear() + separator + this.addZeroInMonthUTC()
+          + separator + this.addZeroInDayUTC() + ' ' + this.addZeroInHoursUTC()
+          + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
       }
-      case 'D-M-Y h:m:s': {
-        return this.addZeroInDayUTC() + '-' + this.addZeroInMonthUTC() + '-' + this.date.getUTCFullYear()
-          + ' ' + this.addZeroInHoursUTC() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
-      }
-      case 'Y/M': {
-        return this.date.getUTCFullYear() + '/' + this.addZeroInMonthUTC();
-      }
-      case 'y/m': {
-        return this.date.getUTCFullYear() + '/' + (this.date.getUTCMonth() + 1);
-      }
-      case 'M/Y': {
-        return this.addZeroInMonthUTC() + '/' + this.date.getUTCFullYear();
-      }
-      case 'm/y': {
-        return (this.date.getUTCMonth() + 1) + '/' + this.date.getUTCFullYear();
-      }
-      case 'Y/M/D': {
-        return this.date.getUTCFullYear() + '/' + this.addZeroInMonthUTC() + '/' + this.addZeroInDayUTC();
-      }
-      case 'D/M/Y': {
-        return this.addZeroInDayUTC() + '/' + this.addZeroInMonthUTC() + '/' + this.date.getUTCFullYear();
-      }
-      case 'Y/M/D h:m:s': {
-        return this.date.getUTCFullYear() + '/' + this.addZeroInMonthUTC() + '/' + this.addZeroInDayUTC()
-          + ' ' + this.addZeroInHoursUTC() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
-      }
-      case 'D/M/Y h:m:s': {
-        return this.addZeroInDayUTC() + '/' + this.addZeroInMonthUTC() + '/' + this.date.getUTCFullYear()
-          + ' ' + this.addZeroInHoursUTC() + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
+      case 'D' + separator + 'M' + separator + 'Y h:m:s': {
+        return this.addZeroInDayUTC() + separator + this.addZeroInMonthUTC()
+          + separator + this.date.getUTCFullYear() + ' ' + this.addZeroInHoursUTC()
+          + ':' + this.date.getUTCMinutes() + ':' + this.date.getUTCSeconds();
       }
       default:
         throw new Error('Format of the date invalid');
@@ -143,58 +124,38 @@ class DateInterval {
    * @returns {string}
    */
   getFormatLocal(format) {
+    const separator = DateInterval.getSeparator(format);
+
     switch (format) {
-      case 'Y-M': {
-        return this.date.getFullYear() + '-' + this.addZeroInMonth();
+      case 'Y' + separator + 'M': {
+        return this.date.getFullYear() + separator + this.addZeroInMonth();
       }
-      case 'y-m': {
-        return this.date.getFullYear() + '-' + (this.date.getMonth() + 1);
+      case 'y' + separator + 'm': {
+        return this.date.getFullYear() + separator + (this.date.getMonth() + 1);
       }
-      case 'M-Y': {
-        return this.addZeroInMonth() + '-' + this.date.getFullYear();
+      case 'M' + separator + 'Y': {
+        return this.addZeroInMonth() + separator + this.date.getFullYear();
       }
-      case 'm-y': {
-        return (this.date.getMonth() + 1) + '-' + this.date.getFullYear();
+      case 'm' + separator + 'y': {
+        return (this.date.getMonth() + 1) + separator + this.date.getFullYear();
       }
-      case 'Y-M-D': {
-        return this.date.getFullYear() + '-' + this.addZeroInMonth() + '-' + this.addZeroInDay();
+      case 'Y' + separator + 'M' + separator + 'D': {
+        return this.date.getFullYear() + separator
+          + this.addZeroInMonth() + separator + this.addZeroInDay();
       }
-      case 'D-M-Y': {
-        return this.addZeroInDay() + '-' + this.addZeroInMonth() + '-' + this.date.getFullYear();
+      case 'D' + separator + 'M' + separator + 'Y': {
+        return this.addZeroInDay() + separator + this.addZeroInMonth()
+          + separator + this.date.getFullYear();
       }
-      case 'Y-M-D h:m:s': {
-        return this.date.getFullYear() + '-' + this.addZeroInMonth() + '-' + this.addZeroInDay()
-          + ' ' + this.addZeroInHours() + ':' + this.date.getMinutes() + ':' + this.date.getSeconds();
+      case 'Y' + separator + 'M' + separator + 'D h:m:s': {
+        return this.date.getFullYear() + separator + this.addZeroInMonth()
+          + separator + this.addZeroInDay() + ' ' + this.addZeroInHours()
+          + ':' + this.date.getMinutes() + ':' + this.date.getSeconds();
       }
-      case 'D-M-Y h:m:s': {
-        return this.addZeroInDay() + '-' + this.addZeroInMonth() + '-' + this.date.getFullYear()
-          + ' ' + this.addZeroInHours() + ':' + this.date.getMinutes() + ':' + this.date.getSeconds();
-      }
-      case 'Y/M': {
-        return this.date.getFullYear() + '/' + this.addZeroInMonth();
-      }
-      case 'y/m': {
-        return this.date.getFullYear() + '/' + (this.date.getMonth() + 1);
-      }
-      case 'M/Y': {
-        return this.addZeroInMonth() + '/' + this.date.getFullYear();
-      }
-      case 'm/y': {
-        return (this.date.getMonth() + 1) + '/' + this.date.getFullYear();
-      }
-      case 'Y/M/D': {
-        return this.date.getFullYear() + '/' + this.addZeroInMonth() + '/' + this.addZeroInDay();
-      }
-      case 'D/M/Y': {
-        return this.addZeroInDay() + '/' + this.addZeroInMonth() + '/' + this.date.getFullYear();
-      }
-      case 'Y/M/D h:m:s': {
-        return this.date.getFullYear() + '/' + this.addZeroInMonth() + '/' + this.addZeroInDay()
-          + ' ' + this.addZeroInHours() + ':' + this.date.getMinutes() + ':' + this.date.getSeconds();
-      }
-      case 'D/M/Y h:m:s': {
-        return this.addZeroInDay() + '/' + this.addZeroInMonth() + '/' + this.date.getFullYear()
-          + ' ' + this.addZeroInHours() + ':' + this.date.getMinutes() + ':' + this.date.getSeconds();
+      case 'D' + separator + 'M' + separator + 'Y h:m:s': {
+        return this.addZeroInDay() + separator + this.addZeroInMonth()
+          + separator + this.date.getFullYear() + ' ' + this.addZeroInHours() + ':'
+          + this.date.getMinutes() + ':' + this.date.getSeconds();
       }
       default:
         throw new Error('Format of the date invalid');
@@ -247,6 +208,15 @@ class DateInterval {
       hours = '0' + hours;
     }
     return hours;
+  }
+
+  static getSeparator(format) {
+    if (format.indexOf('-') !== -1) {
+      return '-';
+    } else if (format.indexOf('/')) {
+      return '/';
+    }
+    throw new Error('Separator is invalid');
   }
 }
 
